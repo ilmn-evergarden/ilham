@@ -9,8 +9,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('blogs', function (Blueprint $table) {
-            $table->text('excerpt')->nullable()->after('thumbnail');
-            $table->enum('status', ['Draft', 'Published'])->default('Draft')->after('content');
+            if (!Schema::hasColumn('blogs', 'excerpt')) {
+                $table->text('excerpt')->nullable()->after('thumbnail');
+            }
+            if (!Schema::hasColumn('blogs', 'status')) {
+                $table->string('status')->default('Draft')->after('content');
+            }
         });
     }
 
