@@ -20,7 +20,6 @@ Route::get('/', [PortfolioController::class, 'index'])->name('home');
 
 // ── Public Routes ───────────────────────────────────────────────────────────
 Route::get('/projects', [ProjectPublicController::class, 'index'])->name('projects.public.index');
-Route::get('/projects/{slug}', [ProjectPublicController::class, 'show'])->name('projects.public.show');
 
 Route::get('/certificates', [CertificatePublicController::class, 'index'])->name('certificates.public.index');
 
@@ -34,7 +33,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth')->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
@@ -50,4 +49,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('blogs', BlogController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 });
 
-require __DIR__.'/auth.php';
+Route::get('/projects/{slug}', [ProjectPublicController::class, 'show'])->name('projects.public.show');
+
+require __DIR__ . '/auth.php';

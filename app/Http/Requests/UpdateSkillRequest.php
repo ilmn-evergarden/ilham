@@ -20,7 +20,7 @@ class UpdateSkillRequest extends FormRequest
             'name'     => ['required', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:255'],
             'level'    => ['required', 'integer', 'min:0', 'max:100'],
-            'icon'     => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp,svg', 'max:1024'],
+            'icon'     => ['nullable', 'mimes:jpg,jpeg,png,webp,svg', 'max:1024'],
         ];
     }
 
