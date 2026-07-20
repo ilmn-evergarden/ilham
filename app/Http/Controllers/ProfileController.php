@@ -2,59 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\UpdateProfileRequest;
+use App\Models\Profile;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * Show the profile edit form.
+     * If the user has no profile yet, pass an empty Profile instance.
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $profile = $request->user()->profile ?? new Profile();
+
+        return view('profile.edit', compact('profile'));
     }
 
     /**
-     * Update the user's profile information.
+     * Create or update the user's profile.
+     * Uses updateOrCreate so the same route handles both first-time save and edits.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(UpdateProfileRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user    = $request->user();
+        $data    = $request->validated();
+        $profile = $user->profile ?? new Profile(['user_id' => $user->id]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        // Handle photo upload
+        if ($request->hasFile('photo')) {
+            // Delete the old photo if it exists
+            if ($profile->photo) {
+                Storage::disk('public')->delete($profile->photo);
+            }
+            $data['photo'] = $request->file('photo')->store('profiles/photos', 'public');
         }
 
-        $request->user()->save();
+        // Handle CV upload
+        if ($request->hasFile('cv')) {
+            // Delete the old CV if it exists
+            if ($profile->cv) {
+                Storage::disk('public')->delete($profile->cv);
+            }
+            $data['cv'] = $request->file('cv')->store('profiles/cvs', 'public');
+        }
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
+        $user->profile()->updateOrCreate(
+            ['user_id' => $user->id],
+            $data
+        );
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        return redirect()->route('profile.edit')->with('status', 'profile-updated');
     }
 }

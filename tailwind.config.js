@@ -9,10 +9,19 @@ export default {
         './resources/views/**/*.blade.php',
     ],
 
+    darkMode: 'class',
+
     theme: {
         extend: {
+            colors: {
+                primary: {
+                    DEFAULT: '#2ba283',
+                    dark: '#059669',
+                }
+            },
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Raleway', ...defaultTheme.fontFamily.sans],
+                serif: ['"Merriweather Sans"', ...defaultTheme.fontFamily.serif],
             },
         },
     },
