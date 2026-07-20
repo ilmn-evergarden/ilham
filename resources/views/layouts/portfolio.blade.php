@@ -8,7 +8,7 @@
     @hasSection('seo')
         @yield('seo')
     @else
-        <x-seo title="{{ $user->name ?? 'Portfolio' }}" description="{{ $user->profile->bio ?? 'Personal Portfolio' }}" />
+        <x-seo title="{{ trim($__env->yieldContent('title')) }}" />
     @endif
 
     <!-- Google Fonts -->

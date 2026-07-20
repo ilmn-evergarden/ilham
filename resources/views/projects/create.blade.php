@@ -1,5 +1,5 @@
 @php use Illuminate\Support\Str; @endphp
-<x-app-layout>
+<x-app-layout title="Create Project">
     <x-slot name="header">
         <div class="flex items-center gap-3">
             <a href="{{ route('projects.index') }}"

@@ -1,4 +1,5 @@
 @extends('layouts.portfolio')
+@section('title', 'Projects')
 
 @section('seo')
     <x-seo title="Projects" description="Explore my portfolio projects" />

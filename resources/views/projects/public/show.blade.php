@@ -1,7 +1,7 @@
 @extends('layouts.portfolio')
 
 @section('seo')
-    <x-seo title="{{ $project->title }}" description="{{ Str::limit(strip_tags($project->description), 150) }}" image="{{ $project->thumbnail }}" />
+    <x-seo title="{{ $project->title }} | Projects" description="{{ $project->excerpt }}" image="{{ $project->images->first()?->image_path }}" />
 @endsection
 
 @section('content')

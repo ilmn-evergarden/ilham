@@ -1,4 +1,5 @@
 @extends('layouts.portfolio')
+@section('title', 'Home')
 
 @section('content')
 

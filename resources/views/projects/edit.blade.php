@@ -1,5 +1,5 @@
 @php use Illuminate\Support\Facades\Storage; @endphp
-<x-app-layout>
+<x-app-layout title="Edit Project">
     <x-slot name="header">
         <div class="flex items-center gap-3">
             <a href="{{ route('projects.index') }}"

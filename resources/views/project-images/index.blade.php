@@ -1,5 +1,5 @@
 @php use Illuminate\Support\Facades\Storage; @endphp
-<x-app-layout>
+<x-app-layout title="Project Images">
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">

@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout title="Create Certificate">
     <x-slot name="header">
         <div class="flex items-center gap-3">
             <a href="{{ route('certificates.index') }}"

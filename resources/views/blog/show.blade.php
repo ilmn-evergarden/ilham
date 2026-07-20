@@ -1,7 +1,7 @@
 @extends('layouts.portfolio')
 
 @section('seo')
-    <x-seo title="{{ $blog->title }} — {{ config('app.name') }}" description="{{ Str::limit(strip_tags($blog->excerpt), 160) }}" image="{{ $blog->thumbnail }}" />
+    <x-seo title="{{ $blog->title }} | Blog" description="{{ Str::limit(strip_tags($blog->excerpt), 160) }}" image="{{ $blog->thumbnail }}" />
     {{-- Markdown → HTML rendering --}}
     <link rel="stylesheet" href="https://unpkg.com/@tailwindcss/typography@0.5.13/src/index.css">
 @endsection
