@@ -21,21 +21,32 @@
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                 @foreach($certificates as $cert)
-                <x-card class="flex flex-col items-center text-center p-8 group reveal">
-                    <div class="w-20 h-20 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform duration-500 group-hover:rotate-6">
-                        <i class="fas fa-award text-4xl"></i>
+                <div class="bg-white dark:bg-[#111] border border-[#e1e1e1] dark:border-[#383848] rounded-lg hover-lift transition-all reveal flex flex-col h-full group overflow-hidden">
+                    <div class="relative h-40 overflow-hidden bg-[#f2f2f2] dark:bg-[#222]">
+                        @if ($cert->image)
+                            <img src="{{ Storage::url($cert->image) }}" alt="{{ $cert->title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        @else
+                            <div class="w-full h-full flex items-center justify-center">
+                                <span class="font-bold text-4xl text-[#999] font-serif">{{ substr($cert->title, 0, 1) }}</span>
+                            </div>
+                        @endif
+                        <div class="absolute top-4 right-4 w-10 h-10 bg-white dark:bg-[#333] rounded-full flex items-center justify-center shadow-md text-primary">
+                            <i class="fas fa-award text-xl"></i>
+                        </div>
                     </div>
-                    <h3 class="text-lg font-bold mb-2 font-serif text-[#222] dark:text-[#ddd]">{{ $cert->title }}</h3>
-                    <p class="text-primary font-medium text-sm mb-4">{{ $cert->issuer }}</p>
-                    <div class="text-xs text-[#999] dark:text-[#a4a4a4] mb-6 flex-grow">
-                        <i class="far fa-calendar-alt mr-1"></i> {{ \Carbon\Carbon::parse($cert->issue_date)->format('F Y') }}
+                    <div class="p-6 flex flex-col flex-grow text-center">
+                        <h3 class="font-bold text-lg mb-2 font-serif text-[#222] dark:text-[#ddd]">{{ $cert->title }}</h3>
+                        <p class="text-sm text-[#555] dark:text-[#a4a4a4] mb-2">{{ $cert->issuer }}</p>
+                        <p class="text-xs text-[#999] mb-4 flex-grow">{{ \Carbon\Carbon::parse($cert->issue_date)->format('F Y') }}</p>
+
+                        @if ($cert->credential_url)
+                            <a href="{{ $cert->credential_url }}" target="_blank"
+                                class="inline-flex items-center justify-center px-4 py-2 text-xs font-medium rounded bg-[#e1e1e1] dark:bg-[#383848] hover:bg-primary hover:text-white transition-colors mt-auto">
+                                Verify Credential &nearr;
+                            </a>
+                        @endif
                     </div>
-                    @if($cert->credential_url)
-                        <x-button href="{{ $cert->credential_url }}" target="_blank" variant="secondary" class="w-full text-xs py-2">
-                            Verify <i class="fas fa-external-link-alt ml-2"></i>
-                        </x-button>
-                    @endif
-                </x-card>
+                </div>
                 @endforeach
             </div>
 

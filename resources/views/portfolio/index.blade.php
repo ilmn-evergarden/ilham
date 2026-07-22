@@ -16,7 +16,7 @@
                         {{ $user->profile->profession ?? 'Web Developer' }}
                     </h2>
                     <p class="text-lg text-slate-500 dark:text-slate-400 mb-8 max-w-lg mx-auto md:mx-0">
-                        {{ $user->profile->location ?? 'Based in the world' }} 🌍
+                        {{ $user->profile->location ?? 'Based in the world' }}
                     </p>
                     <div class="flex space-x-4 justify-center md:justify-start">
                         <x-button href="#projects">
@@ -93,36 +93,35 @@
                         <h3 class="text-xl font-bold mb-6 font-serif text-primary">{{ $category }}</h3>
                         <div class="space-y-4">
                             @foreach ($skills as $skill)
-                                <div>
-                                    <div class="flex justify-between mb-1">
-                                        <span
-                                            class="text-sm font-medium flex items-center gap-2 text-[#555] dark:text-[#a4a4a4]">
-                                            @if ($skill->icon)
-                                                @php
-                                                    $iconExtension = pathinfo($skill->icon, PATHINFO_EXTENSION);
-                                                    $isImageIcon = in_array(strtolower($iconExtension), [
-                                                        'svg',
-                                                        'png',
-                                                        'jpg',
-                                                        'jpeg',
-                                                        'webp',
-                                                        'gif',
-                                                    ]);
-                                                @endphp
+                                <div class="flex items-center gap-4 bg-white dark:bg-[#1a1a1a] p-3 rounded-lg border border-[#e1e1e1] dark:border-[#383848] transition-colors hover:border-primary group">
+                                    @php
+                                        $hasValidIcon = false;
+                                        if ($skill->icon) {
+                                            $iconExtension = pathinfo($skill->icon, PATHINFO_EXTENSION);
+                                            if (in_array(strtolower($iconExtension), ['svg', 'png', 'jpg', 'jpeg', 'webp', 'gif'])) {
+                                                $hasValidIcon = true;
+                                            }
+                                        }
+                                    @endphp
 
-                                                @if ($isImageIcon)
-                                                    <img src="{{ Storage::url($skill->icon) }}"
-                                                        alt="{{ $skill->name }} icon" class="w-4 h-4 object-contain">
-                                                @else
-                                                    <i class="{{ $skill->icon }} w-4 text-center"></i>
-                                                @endif
-                                            @endif
-                                            {{ $skill->name }}
-                                        </span>
-                                        <span class="text-xs font-medium text-[#999]">{{ $skill->level }}%</span>
-                                    </div>
-                                    <div class="w-full bg-[#e1e1e1] dark:bg-[#383848] rounded-full h-2">
-                                        <div class="bg-primary h-2 rounded-full" style="width: {{ $skill->level }}%"></div>
+                                    @if ($hasValidIcon)
+                                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-[#f2f2f2] dark:bg-[#222] rounded p-2 group-hover:scale-110 transition-transform">
+                                            <img src="{{ Storage::url($skill->icon) }}" alt="{{ $skill->name }} icon" class="w-full h-full object-contain">
+                                        </div>
+                                    @else
+                                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-[#f2f2f2] dark:bg-[#222] rounded p-2 group-hover:scale-110 transition-transform">
+                                            <span class="font-bold text-xl text-[#999] font-serif">{{ substr($skill->name, 0, 1) }}</span>
+                                        </div>
+                                    @endif
+                                    
+                                    <div class="flex-grow">
+                                        <div class="flex justify-between mb-2 items-end">
+                                            <span class="text-sm font-bold text-[#222] dark:text-[#ddd] leading-none">{{ $skill->name }}</span>
+                                            <span class="text-xs font-medium text-[#999] leading-none">{{ $skill->level }}%</span>
+                                        </div>
+                                        <div class="w-full bg-[#e1e1e1] dark:bg-[#383848] rounded-full h-1.5">
+                                            <div class="bg-primary h-1.5 rounded-full" style="width: {{ $skill->level }}%"></div>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
@@ -216,7 +215,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse($user->projects as $project)
-                    <x-card class="reveal flex flex-col h-full group p-0 overflow-hidden">
+                    <div class="bg-white dark:bg-[#111] border border-[#e1e1e1] dark:border-[#383848] rounded-lg hover-lift transition-all reveal flex flex-col h-full group overflow-hidden">
                         <div class="relative h-48 overflow-hidden">
                             @if ($project->thumbnail)
                                 <img src="{{ Storage::url($project->thumbnail) }}" alt="{{ $project->title }}"
@@ -272,7 +271,7 @@
                                 </div>
                             </div>
                         </div>
-                    </x-card>
+                    </div>
                 @empty
                     <div class="col-span-full text-center text-[#999]">No projects added yet.</div>
                 @endforelse
@@ -301,23 +300,32 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 @forelse($user->certificates as $cert)
-                    <x-card class="text-center reveal group">
-                        <div
-                            class="w-16 h-16 mx-auto bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center mb-4 text-primary group-hover:scale-110 transition-transform">
-                            <i class="fas fa-award text-2xl"></i>
+                    <div class="bg-white dark:bg-[#111] border border-[#e1e1e1] dark:border-[#383848] rounded-lg hover-lift transition-all reveal flex flex-col h-full group overflow-hidden">
+                        <div class="relative h-40 overflow-hidden bg-[#f2f2f2] dark:bg-[#222]">
+                            @if ($cert->image)
+                                <img src="{{ Storage::url($cert->image) }}" alt="{{ $cert->title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center">
+                                    <span class="font-bold text-4xl text-[#999] font-serif">{{ substr($cert->title, 0, 1) }}</span>
+                                </div>
+                            @endif
+                            <div class="absolute top-4 right-4 w-10 h-10 bg-white dark:bg-[#333] rounded-full flex items-center justify-center shadow-md text-primary">
+                                <i class="fas fa-award text-xl"></i>
+                            </div>
                         </div>
-                        <h3 class="font-bold text-lg mb-2 font-serif text-[#222] dark:text-[#ddd]">{{ $cert->title }}
-                        </h3>
-                        <p class="text-sm text-[#555] dark:text-[#a4a4a4] mb-2">{{ $cert->issuer }}</p>
-                        <p class="text-xs text-[#999] mb-4">{{ $cert->issue_date->format('M Y') }}</p>
+                        <div class="p-6 flex flex-col flex-grow text-center">
+                            <h3 class="font-bold text-lg mb-2 font-serif text-[#222] dark:text-[#ddd]">{{ $cert->title }}</h3>
+                            <p class="text-sm text-[#555] dark:text-[#a4a4a4] mb-2">{{ $cert->issuer }}</p>
+                            <p class="text-xs text-[#999] mb-4 flex-grow">{{ $cert->issue_date->format('M Y') }}</p>
 
-                        @if ($cert->credential_url)
-                            <a href="{{ $cert->credential_url }}" target="_blank"
-                                class="inline-flex items-center justify-center px-4 py-2 text-xs font-medium rounded bg-[#e1e1e1] dark:bg-[#383848] hover:bg-primary hover:text-white transition-colors">
-                                Verify Credential <i class="fas fa-external-link-alt ml-1 text-[10px]"></i>
-                            </a>
-                        @endif
-                    </x-card>
+                            @if ($cert->credential_url)
+                                <a href="{{ $cert->credential_url }}" target="_blank"
+                                    class="inline-flex items-center justify-center px-4 py-2 text-xs font-medium rounded bg-[#e1e1e1] dark:bg-[#383848] hover:bg-primary hover:text-white transition-colors mt-auto">
+                                    Verify Credential &nearr;
+                                </a>
+                            @endif
+                        </div>
+                    </div>
                 @empty
                     <div class="col-span-full text-center text-[#999]">No certificates added yet.</div>
                 @endforelse

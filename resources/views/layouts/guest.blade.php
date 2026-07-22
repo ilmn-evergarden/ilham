@@ -19,8 +19,8 @@
     <body class="font-sans text-[#555] dark:text-[#a4a4a4] antialiased bg-white dark:bg-[#111]">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[#f2f2f2] dark:bg-[#111]">
             <div>
-                <a href="/" class="text-4xl font-bold font-serif text-[#222] dark:text-[#ddd] tracking-tight hover:text-primary transition-colors">
-                    {{ explode(' ', App\Models\User::first()->name ?? 'Admin')[0] }}.
+                <a href="/">
+                    <img src="{{ asset('sidebar.png') }}" alt="Logo" class="block h-16 w-auto mx-auto">
                 </a>
             </div>
 

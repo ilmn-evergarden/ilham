@@ -37,8 +37,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ url('/') }}" class="text-2xl font-bold font-serif text-[#222] dark:text-[#ddd] tracking-tight hover:text-primary dark:hover:text-primary-dark transition-colors">
-                        {{ explode(' ', $user->name ?? 'Portfolio')[0] }}.
+                    <a href="{{ url('/') }}">
+                        <img src="{{ asset('sidebar.png') }}" alt="Logo" class="block h-9 w-auto">
                     </a>
                 </div>
                 
@@ -97,28 +97,25 @@
     <footer class="bg-[#f2f2f2] dark:bg-[#111] border-t border-[#e1e1e1] dark:border-[#383848] mt-20 py-12 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
             <div class="mb-4 md:mb-0 text-center md:text-left">
-                <span class="text-2xl font-bold font-serif text-[#222] dark:text-[#ddd] tracking-tight">
-                    {{ explode(' ', $user->name ?? 'Portfolio')[0] }}.
-                </span>
+                <a href="{{ url('/') }}">
+                    <img src="{{ asset('sidebar.png') }}" alt="Logo" class="block h-9 w-auto mx-auto md:mx-0">
+                </a>
                 <p class="text-sm text-[#555] dark:text-[#a4a4a4] mt-2">© {{ date('Y') }} {{ $user->name ?? 'All rights reserved.' }}.</p>
             </div>
             <div class="flex space-x-6">
                 @if($user->profile && $user->profile->github)
-                <a href="{{ $user->profile->github }}" target="_blank" class="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors hover-lift">
-                    <span class="sr-only">GitHub</span>
-                    <i class="fab fa-github text-xl"></i>
+                <a href="{{ $user->profile->github }}" target="_blank" class="text-sm font-medium text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors hover-lift">
+                    GitHub
                 </a>
                 @endif
                 @if($user->profile && $user->profile->linkedin)
-                <a href="{{ $user->profile->linkedin }}" target="_blank" class="text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors hover-lift">
-                    <span class="sr-only">LinkedIn</span>
-                    <i class="fab fa-linkedin text-xl"></i>
+                <a href="{{ $user->profile->linkedin }}" target="_blank" class="text-sm font-medium text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors hover-lift">
+                    LinkedIn
                 </a>
                 @endif
                 @if($user->profile && $user->profile->instagram)
-                <a href="{{ $user->profile->instagram }}" target="_blank" class="text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors hover-lift">
-                    <span class="sr-only">Instagram</span>
-                    <i class="fab fa-instagram text-xl"></i>
+                <a href="{{ $user->profile->instagram }}" target="_blank" class="text-sm font-medium text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors hover-lift">
+                    Instagram
                 </a>
                 @endif
             </div>
