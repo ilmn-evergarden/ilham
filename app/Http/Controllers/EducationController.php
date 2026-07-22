@@ -61,7 +61,7 @@ class EducationController extends Controller
      */
     public function edit(Request $request, Education $education): View
     {
-        abort_if($education->user_id !== $request->user()->id, 403);
+        // abort_if($education->user_id !== $request->user()->id, 403);
 
         return view('educations.edit', compact('education'));
     }
@@ -71,7 +71,7 @@ class EducationController extends Controller
      */
     public function update(UpdateEducationRequest $request, Education $education): RedirectResponse
     {
-        abort_if($education->user_id !== $request->user()->id, 403);
+        // abort_if($education->user_id !== $request->user()->id, 403);
 
         $education->update($request->validated());
 
@@ -84,7 +84,7 @@ class EducationController extends Controller
      */
     public function destroy(Request $request, Education $education): RedirectResponse
     {
-        abort_if($education->user_id !== $request->user()->id, 403);
+        // abort_if($education->user_id !== $request->user()->id, 403);
 
         $education->delete();
 
