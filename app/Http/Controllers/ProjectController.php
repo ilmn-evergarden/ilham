@@ -80,7 +80,7 @@ class ProjectController extends Controller
      */
     public function edit(Request $request, Project $project): View
     {
-        abort_if($project->user_id !== $request->user()->id, 403);
+        // abort_if($project->user_id !== $request->user()->id, 403);
 
         $technologies       = Technology::orderBy('name')->get();
         $selectedTechIds    = $project->technologies->pluck('id')->toArray();
@@ -93,7 +93,7 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project): RedirectResponse
     {
-        abort_if($project->user_id !== $request->user()->id, 403);
+        // abort_if($project->user_id !== $request->user()->id, 403);
 
         $data = $request->validated();
         $data['featured'] = $request->boolean('featured');
@@ -122,7 +122,7 @@ class ProjectController extends Controller
      */
     public function destroy(Request $request, Project $project): RedirectResponse
     {
-        abort_if($project->user_id !== $request->user()->id, 403);
+        // abort_if($project->user_id !== $request->user()->id, 403);
 
         // Delete thumbnail
         if ($project->thumbnail) {

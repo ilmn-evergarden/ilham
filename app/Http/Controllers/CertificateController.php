@@ -67,7 +67,7 @@ class CertificateController extends Controller
      */
     public function edit(Request $request, Certificate $certificate): View
     {
-        abort_if($certificate->user_id !== $request->user()->id, 403);
+        // abort_if($certificate->user_id !== $request->user()->id, 403);
 
         return view('certificates.edit', compact('certificate'));
     }
@@ -77,7 +77,7 @@ class CertificateController extends Controller
      */
     public function update(UpdateCertificateRequest $request, Certificate $certificate): RedirectResponse
     {
-        abort_if($certificate->user_id !== $request->user()->id, 403);
+        // abort_if($certificate->user_id !== $request->user()->id, 403);
 
         $data = $request->validated();
 
@@ -100,7 +100,7 @@ class CertificateController extends Controller
      */
     public function destroy(Request $request, Certificate $certificate): RedirectResponse
     {
-        abort_if($certificate->user_id !== $request->user()->id, 403);
+        // abort_if($certificate->user_id !== $request->user()->id, 403);
 
         if ($certificate->image) {
             Storage::disk('public')->delete($certificate->image);

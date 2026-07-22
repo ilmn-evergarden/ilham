@@ -72,7 +72,7 @@ class BlogController extends Controller
      */
     public function edit(Request $request, Blog $blog): View
     {
-        abort_if($blog->user_id !== $request->user()->id, 403);
+        // abort_if($blog->user_id !== $request->user()->id, 403);
 
         return view('blogs.edit', compact('blog'));
     }
@@ -82,7 +82,7 @@ class BlogController extends Controller
      */
     public function update(UpdateBlogRequest $request, Blog $blog): RedirectResponse
     {
-        abort_if($blog->user_id !== $request->user()->id, 403);
+        // abort_if($blog->user_id !== $request->user()->id, 403);
 
         $data         = $request->validated();
         $data['slug'] = Str::slug($data['slug']);
@@ -109,7 +109,7 @@ class BlogController extends Controller
      */
     public function destroy(Request $request, Blog $blog): RedirectResponse
     {
-        abort_if($blog->user_id !== $request->user()->id, 403);
+        // abort_if($blog->user_id !== $request->user()->id, 403);
 
         if ($blog->thumbnail) {
             Storage::disk('public')->delete($blog->thumbnail);

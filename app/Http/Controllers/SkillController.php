@@ -72,7 +72,7 @@ class SkillController extends Controller
      */
     public function edit(Request $request, Skill $skill): View
     {
-        abort_if($skill->user_id !== $request->user()->id, 403);
+        // abort_if($skill->user_id !== $request->user()->id, 403);
 
         return view('skills.edit', compact('skill'));
     }
@@ -82,7 +82,7 @@ class SkillController extends Controller
      */
     public function update(UpdateSkillRequest $request, Skill $skill): RedirectResponse
     {
-        abort_if($skill->user_id !== $request->user()->id, 403);
+        // abort_if($skill->user_id !== $request->user()->id, 403);
 
         $data = $request->validated();
 
@@ -105,7 +105,7 @@ class SkillController extends Controller
      */
     public function destroy(Request $request, Skill $skill): RedirectResponse
     {
-        abort_if($skill->user_id !== $request->user()->id, 403);
+        // abort_if($skill->user_id !== $request->user()->id, 403);
 
         if ($skill->icon) {
             Storage::disk('public')->delete($skill->icon);
