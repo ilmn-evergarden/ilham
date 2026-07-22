@@ -131,23 +131,25 @@
 
                                         {{-- Actions --}}
                                         <td class="px-4 py-3 text-center">
-                                            <div class="inline-flex items-center gap-1">
+                                            <div class="inline-flex items-center gap-2 justify-center">
                                                 @if ($blog->status === 'Published')
                                                     <a href="{{ route('blog.show', $blog->slug) }}" target="_blank"
-                                                       class="px-2.5 py-1 text-xs font-medium rounded bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400 hover:bg-teal-200 transition">
+                                                       class="text-xs font-medium text-slate-500 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400 transition-colors">
                                                         View
                                                     </a>
+                                                    <span class="text-slate-300 dark:text-slate-700">|</span>
                                                 @endif
                                                 <a href="{{ route('blogs.edit', $blog) }}"
-                                                   class="px-2.5 py-1 text-xs font-medium rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 hover:bg-amber-200 transition">
+                                                   class="text-xs font-medium text-slate-500 hover:text-amber-600 dark:text-slate-400 dark:hover:text-amber-400 transition-colors">
                                                     Edit
                                                 </a>
+                                                <span class="text-slate-300 dark:text-slate-700">|</span>
                                                 <form method="POST" action="{{ route('blogs.destroy', $blog) }}"
-                                                      onsubmit="return confirm('Hapus artikel \'{{ addslashes($blog->title) }}\'?')">
+                                                      onsubmit="return confirm('Hapus blog \'{{ addslashes($blog->title) }}\'?')" class="inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                            class="px-2.5 py-1 text-xs font-medium rounded bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 hover:bg-red-200 transition">
+                                                            class="text-xs font-medium text-slate-500 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400 transition-colors">
                                                         Hapus
                                                     </button>
                                                 </form>

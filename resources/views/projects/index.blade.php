@@ -158,21 +158,23 @@
 
                                         {{-- Actions --}}
                                         <td class="px-4 py-3 text-center">
-                                            <div class="inline-flex items-center gap-1 flex-wrap justify-center">
+                                            <div class="inline-flex items-center gap-2 justify-center">
                                                 <a href="{{ route('projects.images.index', $project) }}"
-                                                   class="px-2.5 py-1 text-xs font-medium rounded bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-400 hover:bg-violet-200 transition whitespace-nowrap">
-                                                    🖼 Gallery
+                                                   class="text-xs font-medium text-slate-500 hover:text-violet-600 dark:text-slate-400 dark:hover:text-violet-400 transition-colors whitespace-nowrap">
+                                                    Gallery
                                                 </a>
+                                                <span class="text-slate-300 dark:text-slate-700">|</span>
                                                 <a href="{{ route('projects.edit', $project) }}"
-                                                   class="px-2.5 py-1 text-xs font-medium rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 hover:bg-amber-200 transition">
+                                                   class="text-xs font-medium text-slate-500 hover:text-amber-600 dark:text-slate-400 dark:hover:text-amber-400 transition-colors">
                                                     Edit
                                                 </a>
+                                                <span class="text-slate-300 dark:text-slate-700">|</span>
                                                 <form method="POST" action="{{ route('projects.destroy', $project) }}"
-                                                      onsubmit="return confirm('Hapus project \'{{ addslashes($project->title) }}\'? Thumbnail dan semua relasi teknologi akan ikut dihapus.')">
+                                                      onsubmit="return confirm('Hapus project \'{{ addslashes($project->title) }}\'? Thumbnail dan semua relasi teknologi akan ikut dihapus.')" class="inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                            class="px-2.5 py-1 text-xs font-medium rounded bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 hover:bg-red-200 transition">
+                                                            class="text-xs font-medium text-slate-500 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400 transition-colors">
                                                         Hapus
                                                     </button>
                                                 </form>

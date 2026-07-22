@@ -80,7 +80,8 @@
                         </a>
                     </div>
                 @else
-                    <table class="w-full text-sm text-left whitespace-nowrap">
+                    <div class="overflow-x-auto w-full">
+                        <table class="w-full text-sm text-left whitespace-nowrap">
                         <thead class="bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 uppercase text-xs tracking-wide">
                             <tr>
                                 <th class="px-4 py-3 w-10">#</th>
@@ -135,20 +136,18 @@
 
                                     {{-- Actions --}}
                                     <td class="px-4 py-3 text-center">
-                                        <div class="inline-flex items-center gap-1">
+                                        <div class="inline-flex items-center gap-2 justify-center">
                                             <a href="{{ route('skills.edit', $skill) }}"
-                                               class="px-2.5 py-1 text-xs font-medium rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 hover:bg-amber-200 dark:hover:bg-amber-900/60 transition">
+                                               class="text-xs font-medium text-slate-500 hover:text-amber-600 dark:text-slate-400 dark:hover:text-amber-400 transition-colors">
                                                 Edit
                                             </a>
-
-                                            {{-- Delete with confirmation --}}
-                                            <form method="POST"
-                                                  action="{{ route('skills.destroy', $skill) }}"
-                                                  onsubmit="return confirm('Hapus skill \'{{ addslashes($skill->name) }}\'? Tindakan ini tidak dapat dibatalkan.')">
+                                            <span class="text-slate-300 dark:text-slate-700">|</span>
+                                            <form method="POST" action="{{ route('skills.destroy', $skill) }}"
+                                                  onsubmit="return confirm('Hapus skill \'{{ addslashes($skill->name) }}\'?')" class="inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                        class="px-2.5 py-1 text-xs font-medium rounded bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/60 transition">
+                                                        class="text-xs font-medium text-slate-500 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400 transition-colors">
                                                     Hapus
                                                 </button>
                                             </form>
@@ -157,7 +156,8 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                    </table>
+                        </table>
+                    </div>
 
                     {{-- Pagination --}}
                     @if ($skills->hasPages())

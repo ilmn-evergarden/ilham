@@ -117,18 +117,18 @@
                                         </td>
 
                                         <td class="px-4 py-3 text-center">
-                                            <div class="inline-flex items-center gap-1">
+                                            <div class="inline-flex items-center gap-2 justify-center">
                                                 <a href="{{ route('educations.edit', $edu) }}"
-                                                   class="px-2.5 py-1 text-xs font-medium rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 hover:bg-amber-200 dark:hover:bg-amber-900/60 transition">
+                                                   class="text-xs font-medium text-slate-500 hover:text-amber-600 dark:text-slate-400 dark:hover:text-amber-400 transition-colors">
                                                     Edit
                                                 </a>
-                                                <form method="POST"
-                                                      action="{{ route('educations.destroy', $edu) }}"
-                                                      onsubmit="return confirm('Hapus data pendidikan \'{{ addslashes($edu->school_name) }}\'? Tindakan ini tidak dapat dibatalkan.')">
+                                                <span class="text-slate-300 dark:text-slate-700">|</span>
+                                                <form method="POST" action="{{ route('educations.destroy', $edu) }}"
+                                                      onsubmit="return confirm('Hapus education \'{{ addslashes($edu->school_name) }}\'?')" class="inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                            class="px-2.5 py-1 text-xs font-medium rounded bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/60 transition">
+                                                            class="text-xs font-medium text-slate-500 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400 transition-colors">
                                                         Hapus
                                                     </button>
                                                 </form>
